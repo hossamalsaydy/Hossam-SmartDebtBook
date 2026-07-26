@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>دفتر الديون | إدارة ديون العملاء</title>
+<meta name="description" content="تطبيق ذكي لإدارة ديون العملاء مع تسجيل صوتي وتحليل تلقائي">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===================== شاشة التحميل ===================== -->
+<div id="splash" class="splash">
+  <div class="splash-stamp">
+    <svg viewBox="0 0 100 100" width="72" height="72">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="3"/>
+      <text x="50" y="58" text-anchor="middle" font-size="34" font-weight="800" fill="currentColor">د</text>
+    </svg>
+  </div>
+  <p>دفتر الديون</p>
+</div>
+
+<div class="app-shell">
+
+  <!-- ===================== الشريط الجانبي ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark">د</span>
+      <div class="brand-text">
+        <strong>دفتر الديون</strong>
+        <small>إدارة ذكية لحسابات العملاء</small>
+      </div>
+    </div>
+
+    <nav class="nav" id="mainNav">
+      <button class="nav-item active" data-view="dashboard">
+        <svg viewBox="0 0 24 24"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z"/></svg>
+        <span>لوحة التحكم</span>
+      </button>
+      <button class="nav-item" data-view="clients">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3Zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3Zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5Zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5Z"/></svg>
+        <span>العملاء</span>
+      </button>
+      <button class="nav-item" data-view="transactions">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15h-2v-2h2v2Zm2.07-7.75-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25Z"/></svg>
+        <span>المعاملات</span>
+      </button>
+      <button class="nav-item" data-view="voice">
+        <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+        <span>التسجيل الصوتي</span>
+      </button>
+      <button class="nav-item" data-view="reports">
+        <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5V9.2Zm5.6-4.7h2.8V19h-2.8V4.5Zm5.6 8.3h2.8V19h-2.8v-6.2Z"/></svg>
+        <span>التقارير</span>
+      </button>
+      <button class="nav-item" data-view="settings">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L1.16 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94L1.25 14.52a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.4.32.6.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.26.42.5.42h3.84c.24 0 .45-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.02-1.58ZM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2Z"/></svg>
+        <span>الإعدادات</span>
+      </button>
+    </nav>
+
+    <button class="dev-btn" id="openAboutBtn">
+      <svg viewBox="0 0 24 24"><path d="M11 7h2v2h-2V7Zm0 4h2v6h-2v-6Zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg>
+      <span>عن المطوّر</span>
+    </button>
+  </aside>
+
+  <!-- زر فتح القائمة على الجوال -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="القائمة">
+    <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+  </button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===================== المحتوى الرئيسي ===================== -->
+  <main class="content">
+
+    <!-- ---------- لوحة التحكم ---------- -->
+    <section class="view active" id="view-dashboard" data-view="dashboard">
+      <header class="view-header">
+        <div>
+          <h1>لوحة التحكم</h1>
+          <p class="muted">نظرة عامة على أوضاع العملاء والحسابات</p>
+        </div>
+        <button class="btn btn-primary" id="dashQuickVoiceBtn">
+          <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+          تسجيل سريع بالصوت
+        </button>
+      </header>
+
+      <div class="stamp-row">
+        <div class="stamp-card ink-teal">
+          <span class="stamp-label">إجمالي الديون المستحقة</span>
+          <span class="stamp-value" id="statTotalDebt">0</span>
+          <span class="stamp-unit">ريال</span>
+        </div>
+        <div class="stamp-card ink-rose">
+          <span class="stamp-label">إجمالي المسدد</span>
+          <span class="stamp-value" id="statTotalPaid">0</span>
+          <span class="stamp-unit">ريال</span>
+        </div>
+        <div class="stamp-card ink-amber">
+          <span class="stamp-label">الرصيد الصافي المستحق</span>
+          <span class="stamp-value" id="statNetBalance">0</span>
+          <span class="stamp-unit">ريال</span>
+        </div>
+        <div class="stamp-card ink-slate">
+          <span class="stamp-label">عدد العملاء</span>
+          <span class="stamp-value" id="statClientCount">0</span>
+          <span class="stamp-unit">عميل</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h3>أكثر العملاء مديونية</h3>
+          </div>
+          <div id="topDebtorsList" class="ranked-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>حركة آخر 6 أشهر</h3>
+          </div>
+          <canvas id="monthlyChart" height="220"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>آخر المعاملات</h3>
+          <button class="link-btn" data-goto="transactions">عرض الكل ←</button>
+        </div>
+        <div id="recentTxList" class="tx-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------- العملاء ---------- -->
+    <section class="view" id="view-clients" data-view="clients">
+      <header class="view-header">
+        <div>
+          <h1>العملاء</h1>
+          <p class="muted">إدارة بيانات العملاء وكشوف حساباتهم</p>
+        </div>
+        <button class="btn btn-primary" id="addClientBtn">+ عميل جديد</button>
+      </header>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.47 6.47 0 0 0 1.57-4.23 6.5 6.5 0 1 0-6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"/></svg>
+          <input type="text" id="clientSearch" placeholder="ابحث بالاسم أو رقم الهاتف...">
+        </div>
+        <select id="clientFilter">
+          <option value="all">كل العملاء</option>
+          <option value="debtor">عليهم مبالغ (مدينون)</option>
+          <option value="creditor">لهم رصيد (دائنون)</option>
+          <option value="settled">حساباتهم مسدّدة</option>
+        </select>
+        <button class="btn btn-ghost" id="exportClientsBtn">تصدير Excel</button>
+      </div>
+
+      <div class="table-wrap card">
+        <table class="ledger-table" id="clientsTable">
+          <thead>
+            <tr>
+              <th>العميل</th>
+              <th>الهاتف</th>
+              <th>الرصيد المستحق</th>
+              <th>آخر معاملة</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="clientsTbody"></tbody>
+        </table>
+        <div class="empty-state" id="clientsEmpty" hidden>
+          <p>لا يوجد عملاء بعد</p>
+          <button class="btn btn-primary" id="addClientBtnEmpty">إضافة أول عميل</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- تفاصيل العميل / كشف الحساب ---------- -->
+    <section class="view" id="view-clientDetail" data-view="clientDetail">
+      <header class="view-header">
+        <div>
+          <button class="back-btn" data-goto="clients">→ العودة إلى العملاء</button>
+          <h1 id="cdName">اسم العميل</h1>
+          <p class="muted" id="cdPhone">—</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-ghost" id="cdWhatsappBtn">إرسال عبر واتساب</button>
+          <button class="btn btn-ghost" id="cdPdfBtn">فاتورة PDF</button>
+          <button class="btn btn-primary" id="cdAddTxBtn">+ معاملة جديدة</button>
+        </div>
+      </header>
+
+      <div class="stamp-row three">
+        <div class="stamp-card ink-rose">
+          <span class="stamp-label">إجمالي الدين</span>
+          <span class="stamp-value" id="cdTotalDebt">0</span>
+        </div>
+        <div class="stamp-card ink-teal">
+          <span class="stamp-label">إجمالي السداد</span>
+          <span class="stamp-value" id="cdTotalPaid">0</span>
+        </div>
+        <div class="stamp-card ink-amber">
+          <span class="stamp-label">الرصيد الحالي</span>
+          <span class="stamp-value" id="cdBalance">0</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>كشف الحساب</h3>
+        </div>
+        <div class="statement-wrap" id="cdStatement"></div>
+      </div>
+    </section>
+
+    <!-- ---------- المعاملات ---------- -->
+    <section class="view" id="view-transactions" data-view="transactions">
+      <header class="view-header">
+        <div>
+          <h1>المعاملات</h1>
+          <p class="muted">جميع سجلات الديون والسداد</p>
+        </div>
+        <button class="btn btn-primary" id="addTxBtn">+ معاملة جديدة</button>
+      </header>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.47 6.47 0 0 0 1.57-4.23 6.5 6.5 0 1 0-6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"/></svg>
+          <input type="text" id="txSearch" placeholder="ابحث باسم العميل أو ملاحظة...">
+        </div>
+        <select id="txFilter">
+          <option value="all">الكل</option>
+          <option value="debt">ديون فقط</option>
+          <option value="payment">سداد فقط</option>
+        </select>
+        <button class="btn btn-ghost" id="exportTxBtn">تصدير Excel</button>
+      </div>
+
+      <div class="table-wrap card">
+        <table class="ledger-table">
+          <thead>
+            <tr>
+              <th>التاريخ</th>
+              <th>العميل</th>
+              <th>النوع</th>
+              <th>المبلغ</th>
+              <th>ملاحظة</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="txTbody"></tbody>
+        </table>
+        <div class="empty-state" id="txEmpty" hidden>
+          <p>لا توجد معاملات بعد</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- التسجيل الصوتي ---------- -->
+    <section class="view" id="view-voice" data-view="voice">
+      <header class="view-header">
+        <div>
+          <h1>التسجيل الصوتي الذكي</h1>
+          <p class="muted">تحدّث بجملة طبيعية وسيقوم النظام باستخراج بيانات المعاملة تلقائياً</p>
+        </div>
+      </header>
+
+      <div class="voice-stage card">
+        <div class="voice-mic-wrap">
+          <button class="mic-btn" id="micBtn">
+            <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+          </button>
+          <p id="micStatus" class="mic-status">اضغط للبدء بالتسجيل</p>
+          <div class="wave" id="micWave" hidden>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="voice-hint">
+          <strong>أمثلة على ما يمكنك قوله:</strong>
+          <ul>
+            <li>"أحمد محمد عليه دين خمسمية ريال قهوة"</li>
+            <li>"استلمت من سعيد مية وخمسين ريال سداد"</li>
+            <li>"سجل دين على شركة النور بقيمة 1200 ريال"</li>
+          </ul>
+        </div>
+
+        <div class="transcript-box" id="transcriptBox" hidden>
+          <div class="transcript-head">
+            <span>النص المسموع</span>
+            <span class="badge" id="confidenceBadge">الثقة: —</span>
+          </div>
+          <p id="transcriptText"></p>
+        </div>
+      </div>
+
+      <div class="card" id="voiceReviewCard" hidden>
+        <div class="card-head"><h3>مراجعة البيانات قبل الحفظ</h3></div>
+        <form id="voiceReviewForm" class="form-grid">
+          <label>
+            العميل
+            <div class="combo">
+              <input type="text" id="vrClientName" list="clientNamesList" autocomplete="off" placeholder="اسم العميل">
+              <datalist id="clientNamesList"></datalist>
+              <span class="combo-tag" id="vrClientTag"></span>
+            </div>
+          </label>
+          <label>
+            نوع المعاملة
+            <select id="vrType">
+              <option value="debt">دين (عليه)</option>
+              <option value="payment">سداد (دفع)</option>
+            </select>
+          </label>
+          <label>
+            المبلغ
+            <input type="number" id="vrAmount" min="0" step="0.01" placeholder="0.00">
+          </label>
+          <label>
+            التاريخ
+            <input type="date" id="vrDate">
+          </label>
+          <label class="full">
+            ملاحظة
+            <input type="text" id="vrNote" placeholder="سبب الدين أو تفاصيل السداد">
+          </label>
+        </form>
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="voiceDiscardBtn">تجاهل</button>
+          <button class="btn btn-primary" id="voiceSaveBtn">حفظ المعاملة</button>
+        </div>
+      </div>
+
+      <p class="voice-support-note" id="voiceSupportNote"></p>
+    </section>
+
+    <!-- ---------- التقارير ---------- -->
+    <section class="view" id="view-reports" data-view="reports">
+      <header class="view-header">
+        <div>
+          <h1>التقارير والإحصائيات</h1>
+          <p class="muted">تحليل شامل لأداء التحصيل والديون</p>
+        </div>
+        <button class="btn btn-ghost" id="exportAllBtn">تصدير جميع البيانات Excel</button>
+      </header>
+
+      <div class="stamp-row">
+        <div class="stamp-card ink-teal">
+          <span class="stamp-label">إجمالي الديون</span>
+          <span class="stamp-value" id="repTotalDebt">0</span>
+        </div>
+        <div class="stamp-card ink-rose">
+          <span class="stamp-label">إجمالي السداد</span>
+          <span class="stamp-value" id="repTotalPaid">0</span>
+        </div>
+        <div class="stamp-card ink-amber">
+          <span class="stamp-label">نسبة التحصيل</span>
+          <span class="stamp-value" id="repCollectionRate">0%</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h3>الديون مقابل السداد شهرياً</h3></div>
+          <canvas id="reportBarChart" height="240"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>توزيع أرصدة العملاء</h3></div>
+          <canvas id="reportPieChart" height="240"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>أكثر 10 عملاء مديونية</h3></div>
+        <div id="reportTopDebtors" class="ranked-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------- الإعدادات ---------- -->
+    <section class="view" id="view-settings" data-view="settings">
+      <header class="view-header">
+        <div>
+          <h1>الإعدادات</h1>
+          <p class="muted">تفضيلات التطبيق والبيانات</p>
+        </div>
+      </header>
+
+      <div class="card settings-card">
+        <div class="settings-row">
+          <div>
+            <strong>المظهر</strong>
+            <p class="muted">التبديل بين الوضع الفاتح والداكن</p>
+          </div>
+          <button class="theme-toggle" id="themeToggleBtn">
+            <svg viewBox="0 0 24 24" id="themeIcon"><path d="M12 4.5c-.5 0-1 .04-1.47.12A7.5 7.5 0 0 1 12 19.5a7.46 7.46 0 0 1-1.47-.12c.47.08.97.12 1.47.12a7.5 7.5 0 0 0 0-15Z"/></svg>
+            <span id="themeToggleLabel">الوضع الداكن</span>
+          </button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>عملة العرض</strong>
+            <p class="muted">الرمز المستخدم في عرض المبالغ</p>
+          </div>
+          <select id="currencySelect">
+            <option value="ريال">ريال سعودي/يمني (ر.س)</option>
+            <option value="درهم">درهم إماراتي (د.إ)</option>
+            <option value="دينار">دينار (د.ك / د.أ)</option>
+            <option value="جنيه">جنيه (ج.م)</option>
+            <option value="$">دولار ($)</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>اسم النشاط التجاري</strong>
+            <p class="muted">يظهر في الفواتير والتقارير المُصدّرة</p>
+          </div>
+          <input type="text" id="businessNameInput" placeholder="اسم متجرك أو نشاطك">
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>رقم واتساب النشاط</strong>
+            <p class="muted">يستخدم كرقم مرسل افتراضي عند الحاجة</p>
+          </div>
+          <input type="text" id="businessPhoneInput" placeholder="9677xxxxxxxx">
+        </div>
+      </div>
+
+      <div class="card settings-card">
+        <div class="settings-row">
+          <div>
+            <strong>نسخة احتياطية</strong>
+            <p class="muted">تصدير كل البيانات كملف Excel واحد</p>
+          </div>
+          <button class="btn btn-ghost" id="settingsExportAllBtn">تصدير Excel</button>
+        </div>
+        <div class="settings-row danger">
+          <div>
+            <strong>حذف جميع البيانات</strong>
+            <p class="muted">إجراء نهائي لا يمكن التراجع عنه — يُفضّل التصدير أولاً</p>
+          </div>
+          <button class="btn btn-danger" id="wipeDataBtn">حذف الكل</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===================== نافذة إضافة/تعديل عميل ===================== -->
+<div class="modal-overlay" id="clientModal" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="clientModalTitle">عميل جديد</h3>
+      <button class="modal-close" data-close="clientModal">×</button>
+    </div>
+    <form id="clientForm" class="form-grid">
+      <input type="hidden" id="clientId">
+      <label class="full">
+        الاسم الكامل *
+        <input type="text" id="clientNameInput" required placeholder="مثال: أحمد محمد">
+      </label>
+      <label>
+        رقم الهاتف
+        <input type="tel" id="clientPhoneInput" placeholder="7xxxxxxxx">
+      </label>
+      <label>
+        العنوان
+        <input type="text" id="clientAddressInput" placeholder="الحي / المدينة">
+      </label>
+      <label class="full">
+        ملاحظات
+        <textarea id="clientNotesInput" rows="2" placeholder="ملاحظات إضافية عن العميل"></textarea>
+      </label>
+    </form>
+    <div class="form-actions">
+      <button class="btn btn-ghost" id="deleteClientBtn" hidden>حذف العميل</button>
+      <button class="btn btn-primary" id="saveClientBtn">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== نافذة إضافة معاملة ===================== -->
+<div class="modal-overlay" id="txModal" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h3>معاملة جديدة</h3>
+      <button class="modal-close" data-close="txModal">×</button>
+    </div>
+    <form id="txForm" class="form-grid">
+      <input type="hidden" id="txId">
+      <label class="full">
+        العميل *
+        <div class="combo">
+          <input type="text" id="txClientInput" list="clientNamesList2" autocomplete="off" required placeholder="اسم العميل">
+          <datalist id="clientNamesList2"></datalist>
+        </div>
+      </label>
+      <label>
+        نوع المعاملة *
+        <select id="txTypeInput">
+          <option value="debt">دين (عليه)</option>
+          <option value="payment">سداد (دفع)</option>
+        </select>
+      </label>
+      <label>
+        المبلغ *
+        <input type="number" id="txAmountInput" min="0" step="0.01" required placeholder="0.00">
+      </label>
+      <label>
+        التاريخ
+        <input type="date" id="txDateInput">
+      </label>
+      <label class="full">
+        ملاحظة
+        <input type="text" id="txNoteInput" placeholder="سبب الدين أو تفاصيل السداد">
+      </label>
+    </form>
+    <div class="form-actions">
+      <button class="btn btn-ghost" id="deleteTxBtn" hidden>حذف</button>
+      <button class="btn btn-primary" id="saveTxBtn">حفظ المعاملة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== نافذة عن المطوّر ===================== -->
+<div class="modal-overlay" id="aboutModal" hidden>
+  <div class="modal about-modal">
+    <div class="modal-head">
+      <h3>عن المطوّر</h3>
+      <button class="modal-close" data-close="aboutModal">×</button>
+    </div>
+    <div class="about-body">
+      <div class="about-stamp">حس</div>
+      <h2>المهندس حسام الصائدي</h2>
+      <p class="muted">مطوّر هذا التطبيق</p>
+      <a class="btn btn-primary" id="aboutWhatsappLink" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.14.82.84-3.06-.2-.32a8.22 8.22 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.27.86 5.83 2.42a8.17 8.17 0 0 1 2.41 5.83c0 4.55-3.7 8.26-8.25 8.26Zm4.52-6.19c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29Z"/></svg>
+        تواصل عبر واتساب
+      </a>
+      <p class="about-note">لأي استفسار أو طلب تطوير وتخصيص إضافي لهذا التطبيق</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== نافذة تأكيد عامة ===================== -->
+<div class="modal-overlay" id="confirmModal" hidden>
+  <div class="modal small">
+    <div class="modal-head">
+      <h3 id="confirmTitle">تأكيد</h3>
+      <button class="modal-close" data-close="confirmModal">×</button>
+    </div>
+    <p id="confirmMessage" class="muted"></p>
+    <div class="form-actions">
+      <button class="btn btn-ghost" data-close="confirmModal">إلغاء</button>
+      <button class="btn btn-danger" id="confirmActionBtn">تأكيد</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== طبقة الفاتورة القابلة للطباعة ===================== -->
+<div id="printInvoice" class="print-invoice"></div>
+
+<!-- ===================== تنبيهات Toast ===================== -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="js/utils.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/clients.js"></script>
+<script src="js/transactions.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/export.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
