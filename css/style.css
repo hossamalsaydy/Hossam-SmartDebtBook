@@ -30,6 +30,13 @@
   --font-mono:'IBM Plex Mono', 'Consolas', monospace;
   --sidebar-w:252px;
 }
+/* إصلاح حاسم: عناصر مثل .modal-overlay و .wave تُعرّف بـ display:flex
+   بنفس درجة تخصيص قاعدة المتصفح الافتراضية [hidden]{display:none},
+   فتفوز عليها وتبقى الطبقة معروضة وتغطي الشاشة كاملة حتى مع وجود hidden،
+   مما كان يمنع كل الأزرار من العمل لأن طبقة شفافة كانت تعترض كل نقرة. */
+[hidden]{
+  display:none !important;
+}
 
 [data-theme="dark"]{
   --paper-50:#121815;
