@@ -92,11 +92,18 @@ body::before{
   gap:14px; background:var(--paper-50); color:var(--teal-600);
   animation:splashOut .5s ease 1.1s forwards;
 }
-.splash-stamp{
-  width:88px;height:88px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  border:2px solid var(--teal-600); color:var(--teal-600);
+.splash-logo{
+  width:120px;
+  height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   animation:stampIn .6s cubic-bezier(.2,1.4,.4,1);
+}
+.logo-img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
 }
 .splash p{font-family:var(--font-display); font-weight:800; font-size:1.2rem; color:var(--ink-900);}
 @keyframes stampIn{from{transform:scale(1.6) rotate(-8deg); opacity:0;} to{transform:scale(1) rotate(0); opacity:1;}}
@@ -118,11 +125,10 @@ body::before{
   position:sticky; top:0; height:100vh;
 }
 .brand{display:flex; align-items:center; gap:10px;}
-.brand-mark{
-  width:40px;height:40px;border-radius:10px;
-  background:var(--teal-600); color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display); font-weight:800; font-size:1.2rem;
+.brand-logo{
+  width:44px;
+  height:44px;
+  object-fit:contain;
   flex:none;
 }
 .brand-text{display:flex; flex-direction:column; line-height:1.3;}
