@@ -36,6 +36,7 @@ function init(){
     setupNav();
     setupModals();
     setupMobileMenu();
+    setupFloatingVoice();
 
 
     const txDate=document.getElementById("txDateInput");
@@ -331,19 +332,21 @@ function setupMobileMenu(){
 
 
     const btn=document.getElementById("mobileMenuBtn");
+    const btnNew=document.getElementById("mobileMenuBtnNew");
     const sidebar=document.getElementById("sidebar");
     const overlay=document.getElementById("sidebarOverlay");
 
 
+    const openMenu = ()=>{
+        sidebar.classList.add("open");
+        overlay.classList.add("show");
+    };
+
     if(btn){
-
-        btn.addEventListener("click",()=>{
-
-            sidebar.classList.add("open");
-            overlay.classList.add("show");
-
-        });
-
+        btn.addEventListener("click", openMenu);
+    }
+    if(btnNew){
+        btnNew.addEventListener("click", openMenu);
     }
 
 
@@ -378,6 +381,26 @@ function closeMobileSidebar(){
 
         overlay.classList.remove("show");
 
+    }
+
+}
+
+
+/*--------------------------------*/
+
+function setupFloatingVoice(){
+
+    const fab = document.getElementById("floatingVoiceBtn");
+
+    if(fab){
+        fab.addEventListener("click",()=>{
+            navigate("voice");
+            // بدء التسجيل تلقائياً عند النقر على الزر العائم لسهولة الاستخدام
+            setTimeout(()=>{
+                const micBtn = document.getElementById("micBtn");
+                if(micBtn) micBtn.click();
+            }, 300);
+        });
     }
 
 }

@@ -64,11 +64,23 @@
     </button>
   </aside>
 
-  <!-- زر فتح القائمة على الجوال -->
-  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="القائمة">
-    <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
-  </button>
+  <!-- الشريط العلوي الثابت للجوال -->
+  <header class="app-header-mobile">
+    <button class="menu-toggle" id="mobileMenuBtnNew">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+    </button>
+    <div class="mobile-brand">
+      <img src="logo_v2.png" alt="Logo" class="mobile-logo">
+      <span>حسام - دفتر الديون</span>
+    </div>
+    <div style="width: 42px;"></div> <!-- توازن المساحة -->
+  </header>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- زر التسجيل الصوتي العائم -->
+  <button class="fab-voice" id="floatingVoiceBtn" aria-label="تسجيل صوتي">
+    <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+  </button>
 
   <!-- ===================== المحتوى الرئيسي ===================== -->
   <main class="content">
